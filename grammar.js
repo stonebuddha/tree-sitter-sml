@@ -7,6 +7,7 @@ module.exports = grammar({
 
 	extras: $ => [
 		/\s/,
+		$.comment,
 	],
 
 	word: $ => $.ident,
@@ -16,7 +17,8 @@ module.exports = grammar({
 	],
 
 	externals: $ => [
-
+		$.comment,
+		'"',
 	],
 
 	rules: {
@@ -461,8 +463,8 @@ module.exports = grammar({
 			$.int_constant,
 			$.word_constant,
 			$.float_constant,
-			// $.char_constant,
-			// $.string_constant,
+			$.char_constant,
+			$.string_constant,
 		),
 
 		int_constant: $ => INT,
@@ -470,6 +472,30 @@ module.exports = grammar({
 		word_constant: $ => WORD,
 
 		float_constant: $ => FLOAT,
+
+		char_constant: $ => seq(
+			'#"', choice(/[^\\']/, $.escape_seq), '"',
+		),
+
+		string_constant: $ => seq(
+			'"',
+			repeat(
+				choice(
+					/[^\\"%@]+|%|@/,
+					$.escape_seq,
+					alias(/\\u\{[0-9A-Fa-f]+\}/, $.escape_seq),
+        	alias(/\\\n[\t ]*/, $.escape_seq),
+				),
+			),
+			'"',
+		),
+
+		escape_seq: $ => choice(
+      /\\[\\"'ntbr ]/,
+      /\\[0-9][0-9][0-9]/,
+      /\\x[0-9A-Fa-f][0-9A-Fa-f]/,
+      /\\o[0-3][0-7][0-7]/
+    ),
 
 		// Types
 

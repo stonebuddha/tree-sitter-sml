@@ -411,6 +411,21 @@
     }
   },
   {
+    "type": "char_constant",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_seq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "clause",
     "named": true,
     "fields": {},
@@ -541,11 +556,19 @@
       "required": false,
       "types": [
         {
+          "type": "char_constant",
+          "named": true
+        },
+        {
           "type": "float_constant",
           "named": true
         },
         {
           "type": "int_constant",
+          "named": true
+        },
+        {
+          "type": "string_constant",
           "named": true
         },
         {
@@ -564,11 +587,19 @@
       "required": false,
       "types": [
         {
+          "type": "char_constant",
+          "named": true
+        },
+        {
           "type": "float_constant",
           "named": true
         },
         {
           "type": "int_constant",
+          "named": true
+        },
+        {
+          "type": "string_constant",
           "named": true
         },
         {
@@ -905,6 +936,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "escape_seq",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "exception_ldec",
@@ -2117,6 +2153,21 @@
     }
   },
   {
+    "type": "string_constant",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_seq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "struct_whsepc",
     "named": true,
     "fields": {},
@@ -2972,6 +3023,14 @@
   {
     "type": "float_constant",
     "named": true
+  },
+  {
+    "type": "#\"",
+    "named": false
+  },
+  {
+    "type": "\"",
+    "named": false
   },
   {
     "type": "*",
