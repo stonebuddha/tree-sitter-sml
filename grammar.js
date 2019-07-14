@@ -1,5 +1,23 @@
+const INT = token(/~?\d+|~?0x[0-9A-Fa-f]+/);
+const WORD = token(/0w\d+|0wx[0-9A-Fa-f]+/);
+const FLOAT = token(/~?\d+\.\d+([Ee]~?\d+)?/);
+
 module.exports = grammar({
 	name: 'standard_ml',
+
+	extras: $ => [
+		/\s/,
+	],
+
+	word: $ => $.ident,
+
+	conflicts: $ => [
+		[$.match],
+	],
+
+	externals: $ => [
+
+	],
 
 	rules: {
 		source_file: $ => repeat($._sdec),
@@ -8,31 +26,45 @@ module.exports = grammar({
 
 		_sdec: $ => choice(
 			$.structure_dec,
-			// $.signature_dec,
+			$.signature_dec,
 			// $.funsig_dec,
 			// $.functor_dec,
-			// $.local_top_dec,
+			// $.local_dec,
 			$._ldec,
 		),
 
+		// Structures
+
 		structure_dec: $ => seq(
 			'structure',
-			$._struct_bind,
-			repeat(seq('and', $._struct_bind)),
+			$.strb,
+			repeat(seq('and', $.strb)),
 		),
 
-		_struct_bind: $ => seq(
-			$._full_ident,
+		strb: $ => seq(
+			$.ident,
+			optional($._sigconstraint_op),
 			'=',
-			$._struct,
+			$._str,
 		),
 
-		_struct: $ => choice(
-			// $.ident_struct,
+		_sigconstraint_op: $ => choice(
+			$.transparent_sigconstraint_op,
+			$.opaque_sigconstraint_op,
+		),
+
+		transparent_sigconstraint_op: $ => seq(':', $._sign),
+
+		opaque_sigconstraint_op: $ => seq(':>', $._sign),
+
+		_str: $ => choice(
+			$.var_struct,
 			$.base_struct,
 			// $.app_struct,
 			// $.let_struct,
 		),
+
+		var_struct: $ => $.qident,
 
 		base_struct: $ => seq(
 			'struct',
@@ -49,14 +81,8 @@ module.exports = grammar({
 
 		structure_dec_strdec: $ => seq(
 			'structure',
-			$._struct_bind_strdec,
-			repeat(seq('and', $._struct_bind_strdec)),
-		),
-
-		_struct_bind_strdec: $ => seq(
-			$._full_ident,
-			'=',
-			$._struct,
+			$.strb,
+			repeat(seq('and', $.strb)),
 		),
 
 		local_dec_strdec: $ => seq(
@@ -67,29 +93,75 @@ module.exports = grammar({
 			'end',
 		),
 
+		// Signatures
+
+		signature_dec: $ => seq(
+			'signature',
+			$.sigb,
+			repeat(seq('and', $.sigb)),
+		),
+
+		sigb: $ => seq($.ident, '=', $._sign),
+
+		_sign: $ => choice(
+			$.var_sign,
+			$.base_sign,
+			$.aug_sign,
+		),
+
+		var_sign: $ => $.ident,
+
+		base_sign: $ => seq('sig', repeat(choice(';', $._spec)), 'end'),
+
+		aug_sign: $ => prec.right(seq($._sign, 'where', $._whspec, repeat(seq('and', $._whspec)))),
+
+		_spec: $ => choice(
+			// $.str_spec,
+			// $.functor_spec,
+			// $.datatype_repl_spec,
+			// $.datatype_spec,
+			// $.type_spec,
+			// $.eqtype_spec,
+			// $.val_spec,
+			// $.exception_spec,
+			// $.sharing_spec,
+			// $.include_spec,
+		),
+
+		_whspec: $ => choice(
+			$.type_whspec,
+			$.struct_whsepc,
+		),
+
+		type_whspec: $ => seq('type', optional($.tyvar_seq), $.qident, '=', $._ty),
+
+		struct_whsepc: $ => seq($.qident, '=', $.qident),
+
+		// Misc
+
 		_ldec: $ => choice(
-			$.val_dec,
-			$.fun_dec,
-			$.ty_dec,
-			// $.dty_repl_dec,
-			$.dty_dec,
-			// $.absty_dec,
-			$.exception_dec,
-			$.open_dec,
-			$.fixity_dec,
+			$.val_ldec,
+			$.fun_ldec,
+			$.type_ldec,
+			// $.datatype_repl_ldec,
+			$.datatype_ldec,
+			// $.abstype_ldec,
+			$.exception_ldec,
+			$.open_ldec,
+			$.fixity_ldec,
 		),
 
 		// Value declarations
 
-		val_dec: $ => seq(
+		val_ldec: $ => seq(
 			'val',
-			optional($._tyvar_seq),
+			optional($.tyvar_seq),
 			optional('rec'),
-			$._val_bind,
-			repeat(seq('and', $._val_bind)),
+			$.vb,
+			repeat(seq('and', $.vb)),
 		),
 
-		_val_bind: $ => seq(
+		vb: $ => seq(
 			$._pat,
 			'=',
 			$._exp,
@@ -97,34 +169,34 @@ module.exports = grammar({
 
 		// Function declarations
 
-		fun_dec: $ => seq(
+		fun_ldec: $ => seq(
 			'fun',
-			optional($._tyvar_seq),
-			$._fun_bind,
-			repeat(seq('and', $._fun_bind)),
+			optional($.tyvar_seq),
+			$.fb,
+			repeat(seq('and', $.fb)),
 		),
 
-		_fun_bind: $ => seq($._clause, repeat(seq('|', $._clause))),
+		fb: $ => seq($.clause, repeat(seq('|', $.clause))),
 
-		_clause: $ => seq(
+		clause: $ => seq(
 			repeat1($._apat),
-			optional($._constraint),
+			optional($.constraint),
 			'=',
 			$._exp
 		),
 
-		_constraint: $ => seq(':', $._ty),
+		constraint: $ => seq(':', $._ty),
 
 		// Type declarations
 
-		ty_dec: $ => seq(
+		type_ldec: $ => seq(
 			'type',
-			$._ty_bind,
-			repeat(seq('and', $._ty_bind)),
+			$.tb,
+			repeat(seq('and', $.tb)),
 		),
 
-		_ty_bind: $ => seq(
-			optional($._tyvar_seq),
+		tb: $ => seq(
+			optional($.tyvar_seq),
 			$._full_ident,
 			'=',
 			$._ty,
@@ -132,28 +204,28 @@ module.exports = grammar({
 
 		// Datatype declarations
 
-		dty_dec: $ => seq(
+		datatype_ldec: $ => seq(
 			'datatype',
-			$._dty_bind,
-			repeat(seq('and', $._dty_bind)),
+			$.db,
+			repeat(seq('and', $.db)),
 			optional(
 				seq(
 					'withtype',
-					$._ty_bind,
-					repeat(seq('and', $._ty_bind)),
+					$.tb,
+					repeat(seq('and', $.tb)),
 				),
 			),
 		),
 
-		_dty_bind: $ =>	seq(
-			optional($._tyvar_seq),
+		db: $ =>	seq(
+			optional($.tyvar_seq),
 			$._full_ident,
 			'=',
-			$._constr,
-			repeat(seq('|', $._constr)),
+			$.constr,
+			repeat(seq('|', $.constr)),
 		),
 
-		_constr: $ => seq(
+		constr: $ => seq(
 			optional('op'),
 			$._full_ident,
 			optional(seq('of', $._ty)),
@@ -161,29 +233,30 @@ module.exports = grammar({
 
 		// Exception declarations
 
-		exception_dec: $ => seq(
+		exception_ldec: $ => seq(
 			'exception',
-			$._exn_bind,
-			repeat(seq('and', $._exn_bind)),
+			$.eb,
+			repeat(seq('and', $.eb)),
 		),
 
-		_exn_bind: $ => seq(
+		eb: $ => seq(
+			optional('op'),
 			$._full_ident,
-			optional(choice($.exn_gen, $.exn_repl)),
+			optional(choice($.exn_gen, $.exn_def)),
 		),
 
 		exn_gen: $ => seq('of', $._ty),
 
-		exn_repl: $ => seq('=', $._full_ident, repeat(seq('.', $._full_ident))),
+		exn_def: $ => seq('=', $.qident),
 
 		// Misc declarations
 
-		open_dec: $ => seq(
+		open_ldec: $ => seq(
 			'open',
-			repeat1(seq($._full_ident, repeat(seq('.', $._full_ident)))),
+			repeat1($.qident),
 		),
 
-		fixity_dec: $ => seq(
+		fixity_ldec: $ => seq(
 			choice(seq(choice('infix', 'infixr'), optional(/\d+/)), 'nonfix'),
 			repeat1($._full_ident),
 		),
@@ -203,15 +276,17 @@ module.exports = grammar({
 		app_pat: $ => repeat1($._apat),
 
 		_apat: $ => choice(
-			$.__apat,
-			seq('(', $._pat, ')'),
-			$.ident_pat,
+			$._apat_,
+			$.paren_pat,
+			$.var_pat,
 			$.unit_tuple_pat,
 			$.tuple_pat,
 			$.or_pat,
 		),
 
-		ident_pat: $ => $._full_ident,
+		paren_pat: $ => seq('(', $._pat, ')'),
+
+		var_pat: $ => $._full_ident,
 
 		unit_tuple_pat: $ => seq('(', ')'),
 
@@ -219,8 +294,8 @@ module.exports = grammar({
 
 		or_pat: $ => seq('(', $._pat, repeat1(seq('|', $._pat)), ')'),
 
-		__apat: $ => choice(
-			seq('op', $.ident_pat),
+		_apat_: $ => choice(
+			$.op_pat,
 			$.access_pat,
 			$.constant_pat,
 			$.wild_pat,
@@ -230,10 +305,13 @@ module.exports = grammar({
 			$.rec_pat,
 		),
 
+		op_pat: $ => seq('op', $._full_ident),
+
 		access_pat: $ => seq(
 			optional('op'),
-			$._full_ident,
-			repeat1(seq('.', $._full_ident)),
+			$.ident,
+			'.',
+			$.qident,
 		),
 
 		constant_pat: $ => $._constant,
@@ -252,15 +330,14 @@ module.exports = grammar({
 
 		unit_rec_pat: $ => seq('{', '}'),
 
-		rec_pat: $ => seq('{', $._plabels, '}'),
+		rec_pat: $ => seq('{', $.plabels, '}'),
 
-		_plabels: $ => choice(
-			seq($._plabel, ',', $._plabels),
-			$._plabel,
+		plabels: $ => choice(
+			seq($.plabel, repeat(seq(',', $.plabel)), optional(seq(',', '...'))),
 			'...',
 		),
 
-		_plabel: $ => choice(
+		plabel: $ => choice(
 			seq($.selector, '=', $._pat),
 			seq(
 				$._full_ident,
@@ -271,10 +348,9 @@ module.exports = grammar({
 
 		// Matches
 
-		// TODO: check me!
-		_match: $ => prec.right(seq($._rule, repeat(seq('|', $._rule)))),
+		match: $ => seq($.rule, repeat(seq('|', $.rule))),
 
-		_rule: $ => prec.right(seq($._pat, '=>', $._exp)),
+		rule: $ => prec.right(seq($._pat, '=>', $._exp)),
 
 		// Expressions
 
@@ -291,7 +367,7 @@ module.exports = grammar({
 			$.raise_exp,
 		),
 
-		handle_exp: $ => prec.right(seq($._exp, 'handle', $._match)),
+		handle_exp: $ => prec.right(seq($._exp, 'handle', $.match)),
 
 		orelse_exp: $ => prec.right(seq($._exp, 'orelse', $._exp)),
 
@@ -299,11 +375,11 @@ module.exports = grammar({
 
 		constraint_exp: $ => seq($._exp, ':', $._ty),
 
-		app_exp: $ => repeat1(choice($._aexp, $.ident_exp)),
+		app_exp: $ => repeat1(choice($._aexp, $.var_exp)),
 
-		fn_exp: $ => seq('fn', $._match),
+		fn_exp: $ => seq('fn', $.match),
 
-		case_exp: $ => seq('case', $._exp, 'of', $._match),
+		case_exp: $ => seq('case', $._exp, 'of', $.match),
 
 		while_exp: $ => prec.left(seq('while', $._exp, 'do', $._exp)),
 
@@ -311,10 +387,10 @@ module.exports = grammar({
 
 		raise_exp: $ => prec.left(seq('raise', $._exp)),
 
-		ident_exp: $ => $._full_ident,
+		var_exp: $ => $._full_ident,
 
 		_aexp: $ => choice(
-			seq('op', $.ident_exp),
+			$.op_exp,
 			$.access_exp,
 			$.constant_exp,
 			$.selector_exp,
@@ -328,19 +404,22 @@ module.exports = grammar({
 			$.let_exp,
 		),
 
+		op_exp: $ =>	seq('op', $._full_ident),
+
 		access_exp: $ => seq(
 			optional('op'),
-			$._full_ident,
-			repeat1(seq('.', $._full_ident)),
+			$.ident,
+			'.',
+			$.qident,
 		),
 
 		constant_exp: $ => $._constant,
 
 		selector_exp: $ => seq('#', $.selector),
 
-		rec_exp: $ => seq('{', $._elabel, repeat(seq(',', $._elabel)), '}'),
+		rec_exp: $ => seq('{', $.elabel, repeat(seq(',', $.elabel)), '}'),
 
-		_elabel: $ => seq($.selector, '=', $._exp),
+		elabel: $ => seq($.selector, '=', $._exp),
 
 		rec_unit_exp: $ => seq('{', '}'),
 
@@ -362,17 +441,17 @@ module.exports = grammar({
 
 		let_exp: $ => seq(
 			'let',
-			repeat(choice($._ldec, ';', $.local_dec)),
+			repeat(choice($._ldec, ';', $.local_dec_let)),
 			'in',
 			$._exp, repeat(seq(';', $._exp)),
 			'end',
 		),
 
-		local_dec: $ => seq(
+		local_dec_let: $ => seq(
 			'local',
-			repeat(choice($._ldec, ';', $.local_dec)),
+			repeat(choice($._ldec, ';', $.local_dec_let)),
 			'in',
-			repeat(choice($._ldec, ';', $.local_dec)),
+			repeat(choice($._ldec, ';', $.local_dec_let)),
 			'end',
 		),
 
@@ -386,11 +465,11 @@ module.exports = grammar({
 			// $.string_constant,
 		),
 
-		int_constant: $ => /~?\d+|~?0x[0-9A-Fa-f]+/,
+		int_constant: $ => INT,
 
-		word_constant: $ => /0w\d+|0wx[0-9A-Fa-f]+/,
+		word_constant: $ => WORD,
 
-		float_constant: $ => /~?\d+\.\d+([Ee]~\d+)?/,
+		float_constant: $ => FLOAT,
 
 		// Types
 
@@ -408,18 +487,17 @@ module.exports = grammar({
 			$.var_ty,
 			$.rec_ty,
 			$.mark_ty,
-			seq('(', $._ty, ')'),
-
+			$.paren_ty,
 		),
 
 		var_ty: $ => $.tyvar,
 
 		rec_ty: $ => choice(
 			seq('{', '}'),
-			seq('{', $._tlabel, repeat(seq(',', $._tlabel)), '}')
+			seq('{', $.tlabel, repeat(seq(',', $.tlabel)), '}')
 		),
 
-		_tlabel: $ => seq($.selector, ':', $._ty),
+		tlabel: $ => seq($.selector, ':', $._ty),
 
 		mark_ty: $ => seq(
 			optional(choice(
@@ -429,14 +507,13 @@ module.exports = grammar({
 			$.con_ty,
 		),
 
-		con_ty: $ => seq(
-			$._full_ident,
-			repeat(seq('.', $._full_ident)),
-		),
+		con_ty: $ => $.qident,
+
+		paren_ty: $ => seq('(', $._ty, ')'),
 
 		// Utils
 
-		_tyvar_seq: $ => choice(
+		tyvar_seq: $ => choice(
 			$.tyvar,
 			seq('(', $.tyvar, repeat1(seq(',', $.tyvar)), ')'),
 		),
@@ -450,5 +527,7 @@ module.exports = grammar({
 		symbolic: $ => /[!%&$+\-/<]|[!%&$#+\-/:<=>?@\\~`^|*]+/,
 
 		_full_ident: $ => choice($.ident, $.symbolic),
-	}
+
+		qident: $ => seq(repeat(seq($.ident, '.')), $._full_ident),
+	},
 });

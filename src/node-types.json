@@ -12,7 +12,7 @@
           "named": true
         },
         {
-          "type": "symbolic",
+          "type": "qident",
           "named": true
         }
       ]
@@ -31,7 +31,7 @@
           "named": true
         },
         {
-          "type": "symbolic",
+          "type": "qident",
           "named": true
         }
       ]
@@ -105,15 +105,15 @@
           "named": true
         },
         {
-          "type": "ident_exp",
-          "named": true
-        },
-        {
           "type": "let_exp",
           "named": true
         },
         {
           "type": "list_exp",
+          "named": true
+        },
+        {
+          "type": "op_exp",
           "named": true
         },
         {
@@ -141,6 +141,10 @@
           "named": true
         },
         {
+          "type": "var_exp",
+          "named": true
+        },
+        {
           "type": "vector_exp",
           "named": true
         }
@@ -160,23 +164,7 @@
           "named": true
         },
         {
-          "type": "app_pat",
-          "named": true
-        },
-        {
-          "type": "as_pat",
-          "named": true
-        },
-        {
           "type": "constant_pat",
-          "named": true
-        },
-        {
-          "type": "constraint_pat",
-          "named": true
-        },
-        {
-          "type": "ident_pat",
           "named": true
         },
         {
@@ -184,7 +172,15 @@
           "named": true
         },
         {
+          "type": "op_pat",
+          "named": true
+        },
+        {
           "type": "or_pat",
+          "named": true
+        },
+        {
+          "type": "paren_pat",
           "named": true
         },
         {
@@ -201,6 +197,10 @@
         },
         {
           "type": "unit_tuple_pat",
+          "named": true
+        },
+        {
+          "type": "var_pat",
           "named": true
         },
         {
@@ -228,6 +228,10 @@
         },
         {
           "type": "mark_ty",
+          "named": true
+        },
+        {
+          "type": "paren_ty",
           "named": true
         },
         {
@@ -269,6 +273,42 @@
     }
   },
   {
+    "type": "aug_sign",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "aug_sign",
+          "named": true
+        },
+        {
+          "type": "base_sign",
+          "named": true
+        },
+        {
+          "type": "struct_whsepc",
+          "named": true
+        },
+        {
+          "type": "type_whspec",
+          "named": true
+        },
+        {
+          "type": "var_sign",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "base_sign",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "base_struct",
     "named": true,
     "fields": {},
@@ -277,19 +317,19 @@
       "required": false,
       "types": [
         {
-          "type": "dty_dec",
+          "type": "datatype_ldec",
           "named": true
         },
         {
-          "type": "exception_dec",
+          "type": "exception_ldec",
           "named": true
         },
         {
-          "type": "fixity_dec",
+          "type": "fixity_ldec",
           "named": true
         },
         {
-          "type": "fun_dec",
+          "type": "fun_ldec",
           "named": true
         },
         {
@@ -297,7 +337,7 @@
           "named": true
         },
         {
-          "type": "open_dec",
+          "type": "open_ldec",
           "named": true
         },
         {
@@ -305,11 +345,11 @@
           "named": true
         },
         {
-          "type": "ty_dec",
+          "type": "type_ldec",
           "named": true
         },
         {
-          "type": "val_dec",
+          "type": "val_ldec",
           "named": true
         }
       ]
@@ -332,23 +372,11 @@
           "named": true
         },
         {
-          "type": "app_pat",
-          "named": true
-        },
-        {
-          "type": "as_pat",
-          "named": true
-        },
-        {
           "type": "case_exp",
           "named": true
         },
         {
           "type": "constraint_exp",
-          "named": true
-        },
-        {
-          "type": "constraint_pat",
           "named": true
         },
         {
@@ -361,6 +389,10 @@
         },
         {
           "type": "if_exp",
+          "named": true
+        },
+        {
+          "type": "match",
           "named": true
         },
         {
@@ -379,6 +411,113 @@
     }
   },
   {
+    "type": "clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "access_pat",
+          "named": true
+        },
+        {
+          "type": "andalso_exp",
+          "named": true
+        },
+        {
+          "type": "app_exp",
+          "named": true
+        },
+        {
+          "type": "case_exp",
+          "named": true
+        },
+        {
+          "type": "constant_pat",
+          "named": true
+        },
+        {
+          "type": "constraint",
+          "named": true
+        },
+        {
+          "type": "constraint_exp",
+          "named": true
+        },
+        {
+          "type": "fn_exp",
+          "named": true
+        },
+        {
+          "type": "handle_exp",
+          "named": true
+        },
+        {
+          "type": "if_exp",
+          "named": true
+        },
+        {
+          "type": "list_pat",
+          "named": true
+        },
+        {
+          "type": "op_pat",
+          "named": true
+        },
+        {
+          "type": "or_pat",
+          "named": true
+        },
+        {
+          "type": "orelse_exp",
+          "named": true
+        },
+        {
+          "type": "paren_pat",
+          "named": true
+        },
+        {
+          "type": "raise_exp",
+          "named": true
+        },
+        {
+          "type": "rec_pat",
+          "named": true
+        },
+        {
+          "type": "tuple_pat",
+          "named": true
+        },
+        {
+          "type": "unit_rec_pat",
+          "named": true
+        },
+        {
+          "type": "unit_tuple_pat",
+          "named": true
+        },
+        {
+          "type": "var_pat",
+          "named": true
+        },
+        {
+          "type": "vector_pat",
+          "named": true
+        },
+        {
+          "type": "while_exp",
+          "named": true
+        },
+        {
+          "type": "wild_pat",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "con_ty",
     "named": true,
     "fields": {},
@@ -387,11 +526,7 @@
       "required": false,
       "types": [
         {
-          "type": "ident",
-          "named": true
-        },
-        {
-          "type": "symbolic",
+          "type": "qident",
           "named": true
         }
       ]
@@ -438,6 +573,84 @@
         },
         {
           "type": "word_constant",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "arrow_ty",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "mark_ty",
+          "named": true
+        },
+        {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
+          "type": "rec_ty",
+          "named": true
+        },
+        {
+          "type": "symbolic",
+          "named": true
+        },
+        {
+          "type": "tuple_ty",
+          "named": true
+        },
+        {
+          "type": "var_ty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constraint",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "arrow_ty",
+          "named": true
+        },
+        {
+          "type": "mark_ty",
+          "named": true
+        },
+        {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
+          "type": "rec_ty",
+          "named": true
+        },
+        {
+          "type": "tuple_ty",
+          "named": true
+        },
+        {
+          "type": "var_ty",
           "named": true
         }
       ]
@@ -492,6 +705,10 @@
           "named": true
         },
         {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
           "type": "raise_exp",
           "named": true
         },
@@ -543,6 +760,10 @@
           "named": true
         },
         {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
           "type": "rec_ty",
           "named": true
         },
@@ -558,7 +779,7 @@
     }
   },
   {
-    "type": "dty_dec",
+    "type": "datatype_ldec",
     "named": true,
     "fields": {},
     "children": {
@@ -566,7 +787,26 @@
       "required": false,
       "types": [
         {
-          "type": "arrow_ty",
+          "type": "db",
+          "named": true
+        },
+        {
+          "type": "tb",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "db",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "constr",
           "named": true
         },
         {
@@ -574,54 +814,123 @@
           "named": true
         },
         {
-          "type": "mark_ty",
-          "named": true
-        },
-        {
-          "type": "rec_ty",
-          "named": true
-        },
-        {
           "type": "symbolic",
           "named": true
         },
         {
-          "type": "tuple_ty",
-          "named": true
-        },
-        {
-          "type": "tyvar",
-          "named": true
-        },
-        {
-          "type": "var_ty",
+          "type": "tyvar_seq",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "exception_dec",
+    "type": "eb",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "exn_def",
+          "named": true
+        },
         {
           "type": "exn_gen",
           "named": true
         },
         {
-          "type": "exn_repl",
-          "named": true
-        },
-        {
           "type": "ident",
           "named": true
         },
         {
           "type": "symbolic",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "elabel",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "andalso_exp",
+          "named": true
+        },
+        {
+          "type": "app_exp",
+          "named": true
+        },
+        {
+          "type": "case_exp",
+          "named": true
+        },
+        {
+          "type": "constraint_exp",
+          "named": true
+        },
+        {
+          "type": "fn_exp",
+          "named": true
+        },
+        {
+          "type": "handle_exp",
+          "named": true
+        },
+        {
+          "type": "if_exp",
+          "named": true
+        },
+        {
+          "type": "orelse_exp",
+          "named": true
+        },
+        {
+          "type": "raise_exp",
+          "named": true
+        },
+        {
+          "type": "selector",
+          "named": true
+        },
+        {
+          "type": "while_exp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exception_ldec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "eb",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exn_def",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "qident",
           "named": true
         }
       ]
@@ -644,6 +953,10 @@
           "named": true
         },
         {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
           "type": "rec_ty",
           "named": true
         },
@@ -659,7 +972,7 @@
     }
   },
   {
-    "type": "exn_repl",
+    "type": "fb",
     "named": true,
     "fields": {},
     "children": {
@@ -667,18 +980,14 @@
       "required": false,
       "types": [
         {
-          "type": "ident",
-          "named": true
-        },
-        {
-          "type": "symbolic",
+          "type": "clause",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "fixity_dec",
+    "type": "fixity_ldec",
     "named": true,
     "fields": {},
     "children": {
@@ -705,62 +1014,14 @@
       "required": false,
       "types": [
         {
-          "type": "andalso_exp",
-          "named": true
-        },
-        {
-          "type": "app_exp",
-          "named": true
-        },
-        {
-          "type": "app_pat",
-          "named": true
-        },
-        {
-          "type": "as_pat",
-          "named": true
-        },
-        {
-          "type": "case_exp",
-          "named": true
-        },
-        {
-          "type": "constraint_exp",
-          "named": true
-        },
-        {
-          "type": "constraint_pat",
-          "named": true
-        },
-        {
-          "type": "fn_exp",
-          "named": true
-        },
-        {
-          "type": "handle_exp",
-          "named": true
-        },
-        {
-          "type": "if_exp",
-          "named": true
-        },
-        {
-          "type": "orelse_exp",
-          "named": true
-        },
-        {
-          "type": "raise_exp",
-          "named": true
-        },
-        {
-          "type": "while_exp",
+          "type": "match",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "fun_dec",
+    "type": "fun_ldec",
     "named": true,
     "fields": {},
     "children": {
@@ -768,123 +1029,11 @@
       "required": false,
       "types": [
         {
-          "type": "access_pat",
+          "type": "fb",
           "named": true
         },
         {
-          "type": "andalso_exp",
-          "named": true
-        },
-        {
-          "type": "app_exp",
-          "named": true
-        },
-        {
-          "type": "app_pat",
-          "named": true
-        },
-        {
-          "type": "arrow_ty",
-          "named": true
-        },
-        {
-          "type": "as_pat",
-          "named": true
-        },
-        {
-          "type": "case_exp",
-          "named": true
-        },
-        {
-          "type": "constant_pat",
-          "named": true
-        },
-        {
-          "type": "constraint_exp",
-          "named": true
-        },
-        {
-          "type": "constraint_pat",
-          "named": true
-        },
-        {
-          "type": "fn_exp",
-          "named": true
-        },
-        {
-          "type": "handle_exp",
-          "named": true
-        },
-        {
-          "type": "ident_pat",
-          "named": true
-        },
-        {
-          "type": "if_exp",
-          "named": true
-        },
-        {
-          "type": "list_pat",
-          "named": true
-        },
-        {
-          "type": "mark_ty",
-          "named": true
-        },
-        {
-          "type": "or_pat",
-          "named": true
-        },
-        {
-          "type": "orelse_exp",
-          "named": true
-        },
-        {
-          "type": "raise_exp",
-          "named": true
-        },
-        {
-          "type": "rec_pat",
-          "named": true
-        },
-        {
-          "type": "rec_ty",
-          "named": true
-        },
-        {
-          "type": "tuple_pat",
-          "named": true
-        },
-        {
-          "type": "tuple_ty",
-          "named": true
-        },
-        {
-          "type": "tyvar",
-          "named": true
-        },
-        {
-          "type": "unit_rec_pat",
-          "named": true
-        },
-        {
-          "type": "unit_tuple_pat",
-          "named": true
-        },
-        {
-          "type": "var_ty",
-          "named": true
-        },
-        {
-          "type": "vector_pat",
-          "named": true
-        },
-        {
-          "type": "while_exp",
-          "named": true
-        },
-        {
-          "type": "wild_pat",
+          "type": "tyvar_seq",
           "named": true
         }
       ]
@@ -907,23 +1056,11 @@
           "named": true
         },
         {
-          "type": "app_pat",
-          "named": true
-        },
-        {
-          "type": "as_pat",
-          "named": true
-        },
-        {
           "type": "case_exp",
           "named": true
         },
         {
           "type": "constraint_exp",
-          "named": true
-        },
-        {
-          "type": "constraint_pat",
           "named": true
         },
         {
@@ -939,6 +1076,10 @@
           "named": true
         },
         {
+          "type": "match",
+          "named": true
+        },
+        {
           "type": "orelse_exp",
           "named": true
         },
@@ -948,44 +1089,6 @@
         },
         {
           "type": "while_exp",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "ident_exp",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "ident",
-          "named": true
-        },
-        {
-          "type": "symbolic",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "ident_pat",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "ident",
-          "named": true
-        },
-        {
-          "type": "symbolic",
           "named": true
         }
       ]
@@ -1067,15 +1170,15 @@
           "named": true
         },
         {
-          "type": "dty_dec",
+          "type": "datatype_ldec",
           "named": true
         },
         {
-          "type": "exception_dec",
+          "type": "exception_ldec",
           "named": true
         },
         {
-          "type": "fixity_dec",
+          "type": "fixity_ldec",
           "named": true
         },
         {
@@ -1083,7 +1186,7 @@
           "named": true
         },
         {
-          "type": "fun_dec",
+          "type": "fun_ldec",
           "named": true
         },
         {
@@ -1095,11 +1198,11 @@
           "named": true
         },
         {
-          "type": "local_dec",
+          "type": "local_dec_let",
           "named": true
         },
         {
-          "type": "open_dec",
+          "type": "open_ldec",
           "named": true
         },
         {
@@ -1111,11 +1214,11 @@
           "named": true
         },
         {
-          "type": "ty_dec",
+          "type": "type_ldec",
           "named": true
         },
         {
-          "type": "val_dec",
+          "type": "val_ldec",
           "named": true
         },
         {
@@ -1200,7 +1303,7 @@
     }
   },
   {
-    "type": "local_dec",
+    "type": "local_dec_let",
     "named": true,
     "fields": {},
     "children": {
@@ -1208,35 +1311,35 @@
       "required": false,
       "types": [
         {
-          "type": "dty_dec",
+          "type": "datatype_ldec",
           "named": true
         },
         {
-          "type": "exception_dec",
+          "type": "exception_ldec",
           "named": true
         },
         {
-          "type": "fixity_dec",
+          "type": "fixity_ldec",
           "named": true
         },
         {
-          "type": "fun_dec",
+          "type": "fun_ldec",
           "named": true
         },
         {
-          "type": "local_dec",
+          "type": "local_dec_let",
           "named": true
         },
         {
-          "type": "open_dec",
+          "type": "open_ldec",
           "named": true
         },
         {
-          "type": "ty_dec",
+          "type": "type_ldec",
           "named": true
         },
         {
-          "type": "val_dec",
+          "type": "val_ldec",
           "named": true
         }
       ]
@@ -1251,19 +1354,19 @@
       "required": false,
       "types": [
         {
-          "type": "dty_dec",
+          "type": "datatype_ldec",
           "named": true
         },
         {
-          "type": "exception_dec",
+          "type": "exception_ldec",
           "named": true
         },
         {
-          "type": "fixity_dec",
+          "type": "fixity_ldec",
           "named": true
         },
         {
-          "type": "fun_dec",
+          "type": "fun_ldec",
           "named": true
         },
         {
@@ -1271,7 +1374,7 @@
           "named": true
         },
         {
-          "type": "open_dec",
+          "type": "open_ldec",
           "named": true
         },
         {
@@ -1279,11 +1382,11 @@
           "named": true
         },
         {
-          "type": "ty_dec",
+          "type": "type_ldec",
           "named": true
         },
         {
-          "type": "val_dec",
+          "type": "val_ldec",
           "named": true
         }
       ]
@@ -1310,6 +1413,10 @@
           "named": true
         },
         {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
           "type": "rec_ty",
           "named": true
         },
@@ -1325,7 +1432,22 @@
     }
   },
   {
-    "type": "open_dec",
+    "type": "match",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "rule",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "op_exp",
     "named": true,
     "fields": {},
     "children": {
@@ -1338,6 +1460,63 @@
         },
         {
           "type": "symbolic",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "op_pat",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "symbolic",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "opaque_sigconstraint_op",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "aug_sign",
+          "named": true
+        },
+        {
+          "type": "base_sign",
+          "named": true
+        },
+        {
+          "type": "var_sign",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "open_ldec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "qident",
           "named": true
         }
       ]
@@ -1418,6 +1597,157 @@
     }
   },
   {
+    "type": "paren_pat",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "app_pat",
+          "named": true
+        },
+        {
+          "type": "as_pat",
+          "named": true
+        },
+        {
+          "type": "constraint_pat",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "paren_ty",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "arrow_ty",
+          "named": true
+        },
+        {
+          "type": "mark_ty",
+          "named": true
+        },
+        {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
+          "type": "rec_ty",
+          "named": true
+        },
+        {
+          "type": "tuple_ty",
+          "named": true
+        },
+        {
+          "type": "var_ty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "plabel",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "app_pat",
+          "named": true
+        },
+        {
+          "type": "arrow_ty",
+          "named": true
+        },
+        {
+          "type": "as_pat",
+          "named": true
+        },
+        {
+          "type": "constraint_pat",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "mark_ty",
+          "named": true
+        },
+        {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
+          "type": "rec_ty",
+          "named": true
+        },
+        {
+          "type": "selector",
+          "named": true
+        },
+        {
+          "type": "symbolic",
+          "named": true
+        },
+        {
+          "type": "tuple_ty",
+          "named": true
+        },
+        {
+          "type": "var_ty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "plabels",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "plabel",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "qident",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "symbolic",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "raise_exp",
     "named": true,
     "fields": {},
@@ -1477,6 +1807,56 @@
       "required": false,
       "types": [
         {
+          "type": "elabel",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rec_pat",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "plabels",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rec_ty",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "tlabel",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rec_unit_exp",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "rule",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
           "type": "andalso_exp",
           "named": true
         },
@@ -1485,11 +1865,23 @@
           "named": true
         },
         {
+          "type": "app_pat",
+          "named": true
+        },
+        {
+          "type": "as_pat",
+          "named": true
+        },
+        {
           "type": "case_exp",
           "named": true
         },
         {
           "type": "constraint_exp",
+          "named": true
+        },
+        {
+          "type": "constraint_pat",
           "named": true
         },
         {
@@ -1513,110 +1905,11 @@
           "named": true
         },
         {
-          "type": "selector",
-          "named": true
-        },
-        {
           "type": "while_exp",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "rec_pat",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "app_pat",
-          "named": true
-        },
-        {
-          "type": "arrow_ty",
-          "named": true
-        },
-        {
-          "type": "as_pat",
-          "named": true
-        },
-        {
-          "type": "constraint_pat",
-          "named": true
-        },
-        {
-          "type": "ident",
-          "named": true
-        },
-        {
-          "type": "mark_ty",
-          "named": true
-        },
-        {
-          "type": "rec_ty",
-          "named": true
-        },
-        {
-          "type": "selector",
-          "named": true
-        },
-        {
-          "type": "symbolic",
-          "named": true
-        },
-        {
-          "type": "tuple_ty",
-          "named": true
-        },
-        {
-          "type": "var_ty",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "rec_ty",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "arrow_ty",
-          "named": true
-        },
-        {
-          "type": "mark_ty",
-          "named": true
-        },
-        {
-          "type": "rec_ty",
-          "named": true
-        },
-        {
-          "type": "selector",
-          "named": true
-        },
-        {
-          "type": "tuple_ty",
-          "named": true
-        },
-        {
-          "type": "var_ty",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "rec_unit_exp",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "selector",
@@ -1704,6 +1997,48 @@
     }
   },
   {
+    "type": "sigb",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "aug_sign",
+          "named": true
+        },
+        {
+          "type": "base_sign",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "var_sign",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "signature_dec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "sigb",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -1712,23 +2047,27 @@
       "required": false,
       "types": [
         {
-          "type": "dty_dec",
+          "type": "datatype_ldec",
           "named": true
         },
         {
-          "type": "exception_dec",
+          "type": "exception_ldec",
           "named": true
         },
         {
-          "type": "fixity_dec",
+          "type": "fixity_ldec",
           "named": true
         },
         {
-          "type": "fun_dec",
+          "type": "fun_ldec",
           "named": true
         },
         {
-          "type": "open_dec",
+          "type": "open_ldec",
+          "named": true
+        },
+        {
+          "type": "signature_dec",
           "named": true
         },
         {
@@ -1736,11 +2075,57 @@
           "named": true
         },
         {
-          "type": "ty_dec",
+          "type": "type_ldec",
           "named": true
         },
         {
-          "type": "val_dec",
+          "type": "val_ldec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "strb",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "base_struct",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "opaque_sigconstraint_op",
+          "named": true
+        },
+        {
+          "type": "transparent_sigconstraint_op",
+          "named": true
+        },
+        {
+          "type": "var_struct",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "struct_whsepc",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "qident",
           "named": true
         }
       ]
@@ -1755,15 +2140,7 @@
       "required": false,
       "types": [
         {
-          "type": "base_struct",
-          "named": true
-        },
-        {
-          "type": "ident",
-          "named": true
-        },
-        {
-          "type": "symbolic",
+          "type": "strb",
           "named": true
         }
       ]
@@ -1778,7 +2155,22 @@
       "required": false,
       "types": [
         {
-          "type": "base_struct",
+          "type": "strb",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tb",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "arrow_ty",
           "named": true
         },
         {
@@ -1786,7 +2178,93 @@
           "named": true
         },
         {
+          "type": "mark_ty",
+          "named": true
+        },
+        {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
+          "type": "rec_ty",
+          "named": true
+        },
+        {
           "type": "symbolic",
+          "named": true
+        },
+        {
+          "type": "tuple_ty",
+          "named": true
+        },
+        {
+          "type": "tyvar_seq",
+          "named": true
+        },
+        {
+          "type": "var_ty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tlabel",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "arrow_ty",
+          "named": true
+        },
+        {
+          "type": "mark_ty",
+          "named": true
+        },
+        {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
+          "type": "rec_ty",
+          "named": true
+        },
+        {
+          "type": "selector",
+          "named": true
+        },
+        {
+          "type": "tuple_ty",
+          "named": true
+        },
+        {
+          "type": "var_ty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "transparent_sigconstraint_op",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "aug_sign",
+          "named": true
+        },
+        {
+          "type": "base_sign",
+          "named": true
+        },
+        {
+          "type": "var_sign",
           "named": true
         }
       ]
@@ -1875,19 +2353,15 @@
       "required": false,
       "types": [
         {
-          "type": "arrow_ty",
-          "named": true
-        },
-        {
           "type": "mark_ty",
           "named": true
         },
         {
-          "type": "rec_ty",
+          "type": "paren_ty",
           "named": true
         },
         {
-          "type": "tuple_ty",
+          "type": "rec_ty",
           "named": true
         },
         {
@@ -1903,7 +2377,22 @@
     "fields": {}
   },
   {
-    "type": "ty_dec",
+    "type": "type_ldec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "tb",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_whspec",
     "named": true,
     "fields": {},
     "children": {
@@ -1915,11 +2404,15 @@
           "named": true
         },
         {
-          "type": "ident",
+          "type": "mark_ty",
           "named": true
         },
         {
-          "type": "mark_ty",
+          "type": "paren_ty",
+          "named": true
+        },
+        {
+          "type": "qident",
           "named": true
         },
         {
@@ -1927,19 +2420,30 @@
           "named": true
         },
         {
-          "type": "symbolic",
-          "named": true
-        },
-        {
           "type": "tuple_ty",
           "named": true
         },
         {
-          "type": "tyvar",
+          "type": "tyvar_seq",
           "named": true
         },
         {
           "type": "var_ty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tyvar_seq",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "tyvar",
           "named": true
         }
       ]
@@ -1956,7 +2460,109 @@
     "fields": {}
   },
   {
-    "type": "val_dec",
+    "type": "val_ldec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "tyvar_seq",
+          "named": true
+        },
+        {
+          "type": "vb",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "var_exp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "symbolic",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "var_pat",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "symbolic",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "var_sign",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "var_struct",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "qident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "var_ty",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vb",
     "named": true,
     "fields": {},
     "children": {
@@ -2012,26 +2618,7 @@
           "named": true
         },
         {
-          "type": "tyvar",
-          "named": true
-        },
-        {
           "type": "while_exp",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "var_ty",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "tyvar",
           "named": true
         }
       ]
@@ -2175,6 +2762,14 @@
     "named": false
   },
   {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": ":>",
+    "named": false
+  },
+  {
     "type": "struct",
     "named": false
   },
@@ -2195,6 +2790,22 @@
     "named": false
   },
   {
+    "type": "signature",
+    "named": false
+  },
+  {
+    "type": "sig",
+    "named": false
+  },
+  {
+    "type": "where",
+    "named": false
+  },
+  {
+    "type": "type",
+    "named": false
+  },
+  {
     "type": "val",
     "named": false
   },
@@ -2208,14 +2819,6 @@
   },
   {
     "type": "|",
-    "named": false
-  },
-  {
-    "type": ":",
-    "named": false
-  },
-  {
-    "type": "type",
     "named": false
   },
   {
@@ -2236,10 +2839,6 @@
   },
   {
     "type": "exception",
-    "named": false
-  },
-  {
-    "type": ".",
     "named": false
   },
   {
@@ -2272,6 +2871,10 @@
   },
   {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": ".",
     "named": false
   },
   {
