@@ -44,6 +44,10 @@
           "named": true
         },
         {
+          "type": "overload_ldec",
+          "named": true
+        },
+        {
           "type": "tb",
           "named": true
         },
@@ -368,6 +372,10 @@
           "named": true
         },
         {
+          "type": "overload_ldec",
+          "named": true
+        },
+        {
           "type": "structure_dec_strdec",
           "named": true
         },
@@ -598,6 +606,10 @@
           "named": true
         },
         {
+          "type": "overload_ldec",
+          "named": true
+        },
+        {
           "type": "structure_dec_strdec",
           "named": true
         },
@@ -676,7 +688,7 @@
       "required": false,
       "types": [
         {
-          "type": "escape_seq",
+          "type": "character",
           "named": true
         }
       ]
@@ -1280,11 +1292,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "escape_seq",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "exception_ldec",
@@ -1931,6 +1938,10 @@
           "named": true
         },
         {
+          "type": "overload_ldec",
+          "named": true
+        },
+        {
           "type": "raise_exp",
           "named": true
         },
@@ -1999,6 +2010,10 @@
         },
         {
           "type": "open_ldec",
+          "named": true
+        },
+        {
+          "type": "overload_ldec",
           "named": true
         },
         {
@@ -2074,6 +2089,10 @@
         },
         {
           "type": "open_ldec",
+          "named": true
+        },
+        {
+          "type": "overload_ldec",
           "named": true
         },
         {
@@ -2218,6 +2237,10 @@
           "named": true
         },
         {
+          "type": "overload_ldec",
+          "named": true
+        },
+        {
           "type": "signature_dec",
           "named": true
         },
@@ -2277,6 +2300,10 @@
           "named": true
         },
         {
+          "type": "overload_ldec",
+          "named": true
+        },
+        {
           "type": "type_ldec",
           "named": true
         },
@@ -2329,6 +2356,10 @@
         },
         {
           "type": "open_ldec",
+          "named": true
+        },
+        {
+          "type": "overload_ldec",
           "named": true
         },
         {
@@ -2556,6 +2587,89 @@
         },
         {
           "type": "raise_exp",
+          "named": true
+        },
+        {
+          "type": "while_exp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "overload_ldec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "andalso_exp",
+          "named": true
+        },
+        {
+          "type": "app_exp",
+          "named": true
+        },
+        {
+          "type": "arrow_ty",
+          "named": true
+        },
+        {
+          "type": "case_exp",
+          "named": true
+        },
+        {
+          "type": "constraint_exp",
+          "named": true
+        },
+        {
+          "type": "fn_exp",
+          "named": true
+        },
+        {
+          "type": "handle_exp",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "if_exp",
+          "named": true
+        },
+        {
+          "type": "mark_ty",
+          "named": true
+        },
+        {
+          "type": "orelse_exp",
+          "named": true
+        },
+        {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
+          "type": "raise_exp",
+          "named": true
+        },
+        {
+          "type": "rec_ty",
+          "named": true
+        },
+        {
+          "type": "symbolic",
+          "named": true
+        },
+        {
+          "type": "tuple_ty",
+          "named": true
+        },
+        {
+          "type": "var_ty",
           "named": true
         },
         {
@@ -3055,6 +3169,22 @@
           "named": true
         },
         {
+          "type": "andalso_exp",
+          "named": true
+        },
+        {
+          "type": "app_exp",
+          "named": true
+        },
+        {
+          "type": "case_exp",
+          "named": true
+        },
+        {
+          "type": "constraint_exp",
+          "named": true
+        },
+        {
           "type": "datatype_ldec",
           "named": true
         },
@@ -3071,6 +3201,10 @@
           "named": true
         },
         {
+          "type": "fn_exp",
+          "named": true
+        },
+        {
           "type": "fun_ldec",
           "named": true
         },
@@ -3083,11 +3217,31 @@
           "named": true
         },
         {
+          "type": "handle_exp",
+          "named": true
+        },
+        {
+          "type": "if_exp",
+          "named": true
+        },
+        {
           "type": "local_dec",
           "named": true
         },
         {
           "type": "open_ldec",
+          "named": true
+        },
+        {
+          "type": "orelse_exp",
+          "named": true
+        },
+        {
+          "type": "overload_ldec",
+          "named": true
+        },
+        {
+          "type": "raise_exp",
           "named": true
         },
         {
@@ -3104,6 +3258,10 @@
         },
         {
           "type": "val_ldec",
+          "named": true
+        },
+        {
+          "type": "while_exp",
           "named": true
         }
       ]
@@ -3172,7 +3330,7 @@
       "required": false,
       "types": [
         {
-          "type": "escape_seq",
+          "type": "string",
           "named": true
         }
       ]
@@ -4151,6 +4309,10 @@
     "named": false
   },
   {
+    "type": "overload",
+    "named": false
+  },
+  {
     "type": "as",
     "named": false
   },
@@ -4253,14 +4415,6 @@
   {
     "type": "float_constant",
     "named": true
-  },
-  {
-    "type": "#\"",
-    "named": false
-  },
-  {
-    "type": "\"",
-    "named": false
   },
   {
     "type": "*",

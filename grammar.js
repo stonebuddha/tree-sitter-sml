@@ -18,12 +18,12 @@ module.exports = grammar({
 
 	externals: $ => [
 		$.comment,
-		'"',
-		'#"',
+		$.string,
+		$.character,
 	],
 
 	rules: {
-		source_file: $ => repeat(choice(';', $._sdec)),
+		source_file: $ => seq(repeat(seq($._exp, ';')), repeat(choice(';', $._sdec))),
 
 		// Top-level declarations
 
@@ -277,8 +277,8 @@ module.exports = grammar({
 		),
 
 		fctb: $ => choice(
-			seq($.ident, repeat1($.fparam), $._sigconstraint_op, '=', $._str),
-			seq($.ident, $._fsigconstraint_op, '=', $._fct_exp),
+			seq($.ident, repeat1($.fparam), optional($._sigconstraint_op), '=', $._str),
+			seq($.ident, optional($._fsigconstraint_op), '=', $._fct_exp),
 		),
 
 		fparam: $ => choice(
@@ -338,6 +338,7 @@ module.exports = grammar({
 			$.exception_ldec,
 			$.open_ldec,
 			$.fixity_ldec,
+			$.overload_ldec,
 		),
 
 		// Value declarations
@@ -465,6 +466,16 @@ module.exports = grammar({
 		fixity_ldec: $ => seq(
 			choice(seq(choice('infix', 'infixr'), optional($.int_constant)), 'nonfix'),
 			repeat1($._full_ident),
+		),
+
+		overload_ldec: $ => seq(
+			'overload',
+			$._full_ident,
+			':',
+			$._ty,
+			'as',
+			$._exp,
+			repeat(seq('and', $._exp)),
 		),
 
 		// Patterns
@@ -677,29 +688,9 @@ module.exports = grammar({
 
 		float_constant: $ => FLOAT,
 
-		char_constant: $ => seq(
-			'#"', optional(choice(/[^\\"]/, $.escape_seq)), '"',
-		),
+		char_constant: $ => $.character,
 
-		string_constant: $ => seq(
-			'"',
-			repeat(
-				choice(
-					/[^\\"]+/,
-					$.escape_seq,
-					alias(/\\u\{[0-9A-Fa-f]+\}/, $.escape_seq),
-        	alias(/\\\n[\t ]*/, $.escape_seq),
-				),
-			),
-			'"',
-		),
-
-		escape_seq: $ => choice(
-      /\\[\\"'ntbr ]/,
-      /\\[0-9][0-9][0-9]/,
-      /\\x[0-9A-Fa-f][0-9A-Fa-f]/,
-      /\\o[0-3][0-7][0-7]/
-    ),
+		string_constant: $ => $.string,
 
 		// Types
 

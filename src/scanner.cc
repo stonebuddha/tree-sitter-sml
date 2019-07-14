@@ -1,29 +1,20 @@
 #include <tree_sitter/parser.h>
 #include <string>
-#include <wctype.h>
 
 namespace {
 
 	enum {
 		COMMENT,
-		STRING_DELIM,
-		CHAR_DELIM
+		STRING,
+		CHARACTER
 	};
 
 	struct Scanner {
-		bool in_string;
-
-		Scanner() {
-			in_string = false;
-		}
-
 		unsigned serialize(char *buffer) {
-			*buffer = in_string;
-			return 1;
+			return 0;
 		}
 
 		void deserialize(const char *buffer, unsigned length) {
-			in_string = (length > 0) && *buffer;
 		}
 
 		void advance(TSLexer *lexer) {
@@ -45,50 +36,75 @@ namespace {
 				skip(lexer);
 			}
 
-			if (!in_string && valid_symbols[COMMENT] && lexer->lookahead == '(') {
+			if (valid_symbols[COMMENT] && lexer->lookahead == '(') {
+				advance(lexer);
+				if (lexer->lookahead != '*') return false;
 				advance(lexer);
 				lexer->result_symbol = COMMENT;
 				return scan_comment(lexer);
-			} else if (valid_symbols[STRING_DELIM] && lexer->lookahead == '"') {
+			} else if (valid_symbols[STRING] && lexer->lookahead == '"') {
 				advance(lexer);
-				in_string = !in_string;
-				lexer->result_symbol = STRING_DELIM;
-				return true;
-			} else if (!in_string && valid_symbols[CHAR_DELIM] && lexer->lookahead == '#') {
+				lexer->result_symbol = STRING;
+				return scan_string(lexer);
+			} else if (valid_symbols[CHARACTER] && lexer->lookahead == '#') {
 				advance(lexer);
-				lexer->result_symbol = CHAR_DELIM;
 				if (lexer->lookahead != '"') return false;
 				advance(lexer);
-				in_string = true;
-				return true;
+				lexer->result_symbol = CHARACTER;
+				return scan_string(lexer);
 			}
 
 			return false;
 		}
 
-		bool scan_quoted_string(TSLexer *lexer) {
-			std::string id;
-			size_t i;
-
-			while (iswlower(lexer->lookahead) || lexer->lookahead == '_') {
-				id.push_back((char)lexer->lookahead);
-				advance(lexer);
-			}
-
-			if (lexer->lookahead != '|') return false;
-			advance(lexer);
-
+		bool scan_string(TSLexer *lexer) {
 			while (true) {
 				switch (lexer->lookahead) {
-					case '|':
+					case '"':
 						advance(lexer);
-						for (i = 0; i < id.size(); i++) {
-							if (lexer->lookahead != id[i]) break;
+						return true;
+					case '\r':
+					case '\n':
+						return false;
+					case '\\':
+						advance(lexer);
+						if (iswspace(lexer->lookahead)) {
+							while (iswspace(lexer->lookahead)) skip(lexer);
+							if (lexer->lookahead != '\\') return false;
 							advance(lexer);
-						}
-						if (i == id.size() && lexer->lookahead == '}') {
-							advance(lexer);
-							return true;
+						} else {
+							switch (lexer->lookahead) {
+								case 'a':
+								case 'b':
+								case 'f':
+								case 'n':
+								case 'r':
+								case 't':
+								case 'v':
+								case '\\':
+								case '"':
+									advance(lexer);
+									break;
+								case '^':
+									advance(lexer);
+									advance(lexer);
+									break;
+								case 'u':
+									advance(lexer);
+									advance(lexer);
+									advance(lexer);
+									advance(lexer);
+									advance(lexer);
+									break;
+								default:
+									if (lexer->lookahead >= '0' && lexer->lookahead <= '9') {
+										advance(lexer);
+										advance(lexer);
+										advance(lexer);
+									} else {
+										return false;
+									}
+							}
 						}
 						break;
 					case '\0':
@@ -101,40 +117,30 @@ namespace {
 		}
 
 		bool scan_comment(TSLexer *lexer) {
-			char last = 0;
-
-			if (lexer->lookahead != '*') return false;
-			advance(lexer);
+			int lev_comment = 1;
 
 			while (true) {
-				switch (last ? last : lexer->lookahead) {
+				switch (lexer->lookahead) {
 					case '(':
-						if (last) last = 0; else advance(lexer);
-						scan_comment(lexer);
-						break;
-					case '*':
-						if (last) last = 0; else advance(lexer);
-						if (lexer->lookahead == ')') {
+						advance(lexer);
+						if (lexer->lookahead == '*') {
 							advance(lexer);
-							return true;
+							lev_comment += 1;
 						}
 						break;
-					case '{':
-						if (last) last = 0; else advance(lexer);
-						scan_quoted_string(lexer);
+					case '*':
+						advance(lexer);
+						if (lexer->lookahead == ')') {
+							advance(lexer);
+							lev_comment -= 1;
+							if (!lev_comment) return true;
+						}
 						break;
 					case '\0':
 						if (is_eof(lexer)) return false;
 						break;
 					default:
-						if (iswalpha(lexer->lookahead) || lexer->lookahead == '_') {
-							if (last) last = 0; else advance(lexer);
-							while (iswalnum(lexer->lookahead) || lexer->lookahead == '_' || lexer->lookahead == '\'') {
-								advance(lexer);
-							}
-						} else {
-							if (last) last = 0; else advance(lexer);
-						}
+						advance(lexer);
 				}
 			}
 		}

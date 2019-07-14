@@ -1,0 +1,3 @@
+examples/compiler/FLINT/opt/abcopt.sml
+examples/compiler/FLINT/plambda/rpplexp.sml
+examples/smlnj-lib/PP/tests/typp.sml

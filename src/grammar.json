@@ -3,20 +3,41 @@
   "word": "ident",
   "rules": {
     "source_file": {
-      "type": "REPEAT",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "STRING",
-            "value": ";"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_sdec"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_exp"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ";"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_sdec"
+              }
+            ]
+          }
+        }
+      ]
     },
     "_sdec": {
       "type": "CHOICE",
@@ -1292,8 +1313,16 @@
               }
             },
             {
-              "type": "SYMBOL",
-              "name": "_sigconstraint_op"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_sigconstraint_op"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "STRING",
@@ -1313,8 +1342,16 @@
               "name": "ident"
             },
             {
-              "type": "SYMBOL",
-              "name": "_fsigconstraint_op"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_fsigconstraint_op"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "STRING",
@@ -1638,6 +1675,10 @@
         {
           "type": "SYMBOL",
           "name": "fixity_ldec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "overload_ldec"
         }
       ]
     },
@@ -2300,6 +2341,51 @@
           "content": {
             "type": "SYMBOL",
             "name": "_full_ident"
+          }
+        }
+      ]
+    },
+    "overload_ldec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "overload"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_full_ident"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_ty"
+        },
+        {
+          "type": "STRING",
+          "value": "as"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_exp"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "and"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_exp"
+              }
+            ]
           }
         }
       ]
@@ -3659,106 +3745,12 @@
       }
     },
     "char_constant": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "#\""
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "PATTERN",
-                  "value": "[^\\\\\"]"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "escape_seq"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "\""
-        }
-      ]
+      "type": "SYMBOL",
+      "name": "character"
     },
     "string_constant": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "\""
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "PATTERN",
-                "value": "[^\\\\\"]+"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "escape_seq"
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "\\\\u\\{[0-9A-Fa-f]+\\}"
-                },
-                "named": true,
-                "value": "escape_seq"
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "\\\\\\n[\\t ]*"
-                },
-                "named": true,
-                "value": "escape_seq"
-              }
-            ]
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "\""
-        }
-      ]
-    },
-    "escape_seq": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": "\\\\[\\\\\"'ntbr ]"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\\\[0-9][0-9][0-9]"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\\\x[0-9A-Fa-f][0-9A-Fa-f]"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\\\o[0-3][0-7][0-7]"
-        }
-      ]
+      "type": "SYMBOL",
+      "name": "string"
     },
     "_ty": {
       "type": "CHOICE",
@@ -4123,12 +4115,12 @@
       "name": "comment"
     },
     {
-      "type": "STRING",
-      "value": "\""
+      "type": "SYMBOL",
+      "name": "string"
     },
     {
-      "type": "STRING",
-      "value": "#\""
+      "type": "SYMBOL",
+      "name": "character"
     }
   ],
   "inline": [],
