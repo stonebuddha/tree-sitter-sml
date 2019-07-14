@@ -1,5 +1,64 @@
 [
   {
+    "type": "abstype_ldec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "abstype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_repl_ldec",
+          "named": true
+        },
+        {
+          "type": "db",
+          "named": true
+        },
+        {
+          "type": "exception_ldec",
+          "named": true
+        },
+        {
+          "type": "fixity_ldec",
+          "named": true
+        },
+        {
+          "type": "fun_ldec",
+          "named": true
+        },
+        {
+          "type": "local_dec_let",
+          "named": true
+        },
+        {
+          "type": "open_ldec",
+          "named": true
+        },
+        {
+          "type": "tb",
+          "named": true
+        },
+        {
+          "type": "type_ldec",
+          "named": true
+        },
+        {
+          "type": "val_ldec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "access_exp",
     "named": true,
     "fields": {},
@@ -152,6 +211,25 @@
     }
   },
   {
+    "type": "app_fct_exp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "arg_fct",
+          "named": true
+        },
+        {
+          "type": "qident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "app_pat",
     "named": true,
     "fields": {},
@@ -188,15 +266,15 @@
           "named": true
         },
         {
+          "type": "rec_unit_pat",
+          "named": true
+        },
+        {
           "type": "tuple_pat",
           "named": true
         },
         {
-          "type": "unit_rec_pat",
-          "named": true
-        },
-        {
-          "type": "unit_tuple_pat",
+          "type": "tuple_unit_pat",
           "named": true
         },
         {
@@ -209,6 +287,100 @@
         },
         {
           "type": "wild_pat",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "app_struct",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "arg_fct",
+          "named": true
+        },
+        {
+          "type": "qident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "arg_fct",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "abstype_ldec",
+          "named": true
+        },
+        {
+          "type": "app_struct",
+          "named": true
+        },
+        {
+          "type": "base_struct",
+          "named": true
+        },
+        {
+          "type": "datatype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_repl_ldec",
+          "named": true
+        },
+        {
+          "type": "exception_ldec",
+          "named": true
+        },
+        {
+          "type": "fixity_ldec",
+          "named": true
+        },
+        {
+          "type": "fun_ldec",
+          "named": true
+        },
+        {
+          "type": "functor_dec_strdec",
+          "named": true
+        },
+        {
+          "type": "let_struct",
+          "named": true
+        },
+        {
+          "type": "local_dec_strdec",
+          "named": true
+        },
+        {
+          "type": "open_ldec",
+          "named": true
+        },
+        {
+          "type": "structure_dec_strdec",
+          "named": true
+        },
+        {
+          "type": "type_ldec",
+          "named": true
+        },
+        {
+          "type": "val_ldec",
+          "named": true
+        },
+        {
+          "type": "var_struct",
           "named": true
         }
       ]
@@ -304,9 +476,82 @@
     }
   },
   {
+    "type": "base_fsig",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "aug_sign",
+          "named": true
+        },
+        {
+          "type": "base_sign",
+          "named": true
+        },
+        {
+          "type": "fparam",
+          "named": true
+        },
+        {
+          "type": "var_sign",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "base_sign",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "datatype_repl_spec",
+          "named": true
+        },
+        {
+          "type": "datatype_spec",
+          "named": true
+        },
+        {
+          "type": "eqtype_spec",
+          "named": true
+        },
+        {
+          "type": "exception_spec",
+          "named": true
+        },
+        {
+          "type": "functor_spec",
+          "named": true
+        },
+        {
+          "type": "include_spec",
+          "named": true
+        },
+        {
+          "type": "sharing_spec",
+          "named": true
+        },
+        {
+          "type": "str_spec",
+          "named": true
+        },
+        {
+          "type": "type_spec",
+          "named": true
+        },
+        {
+          "type": "val_spec",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "base_struct",
@@ -317,7 +562,15 @@
       "required": false,
       "types": [
         {
+          "type": "abstype_ldec",
+          "named": true
+        },
+        {
           "type": "datatype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_repl_ldec",
           "named": true
         },
         {
@@ -330,6 +583,10 @@
         },
         {
           "type": "fun_ldec",
+          "named": true
+        },
+        {
+          "type": "functor_dec_strdec",
           "named": true
         },
         {
@@ -502,15 +759,15 @@
           "named": true
         },
         {
+          "type": "rec_unit_pat",
+          "named": true
+        },
+        {
           "type": "tuple_pat",
           "named": true
         },
         {
-          "type": "unit_rec_pat",
-          "named": true
-        },
-        {
-          "type": "unit_tuple_pat",
+          "type": "tuple_unit_pat",
           "named": true
         },
         {
@@ -829,6 +1086,55 @@
     }
   },
   {
+    "type": "datatype_repl_ldec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dtrepl",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "datatype_repl_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dtrepl",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "datatype_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "db",
+          "named": true
+        },
+        {
+          "type": "tb",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "db",
     "named": true,
     "fields": {},
@@ -850,6 +1156,29 @@
         },
         {
           "type": "tyvar_seq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dtrepl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "con_ty",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "symbolic",
           "named": true
         }
       ]
@@ -938,6 +1267,21 @@
     }
   },
   {
+    "type": "eqtype_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "tyspec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "escape_seq",
     "named": true,
     "fields": {}
@@ -952,6 +1296,21 @@
       "types": [
         {
           "type": "eb",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exception_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "exnspec",
           "named": true
         }
       ]
@@ -1008,6 +1367,49 @@
     }
   },
   {
+    "type": "exnspec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "arrow_ty",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "mark_ty",
+          "named": true
+        },
+        {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
+          "type": "rec_ty",
+          "named": true
+        },
+        {
+          "type": "symbolic",
+          "named": true
+        },
+        {
+          "type": "tuple_ty",
+          "named": true
+        },
+        {
+          "type": "var_ty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "fb",
     "named": true,
     "fields": {},
@@ -1017,6 +1419,92 @@
       "types": [
         {
           "type": "clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fctb",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "app_fct_exp",
+          "named": true
+        },
+        {
+          "type": "app_struct",
+          "named": true
+        },
+        {
+          "type": "base_struct",
+          "named": true
+        },
+        {
+          "type": "fparam",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "let_fct_exp",
+          "named": true
+        },
+        {
+          "type": "let_struct",
+          "named": true
+        },
+        {
+          "type": "opaque_fsigconstraint_op",
+          "named": true
+        },
+        {
+          "type": "opaque_sigconstraint_op",
+          "named": true
+        },
+        {
+          "type": "transparent_fsigconstraint_op",
+          "named": true
+        },
+        {
+          "type": "transparent_sigconstraint_op",
+          "named": true
+        },
+        {
+          "type": "var_fct_exp",
+          "named": true
+        },
+        {
+          "type": "var_struct",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fctspec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "base_fsig",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "var_fsig",
           "named": true
         }
       ]
@@ -1061,6 +1549,104 @@
     }
   },
   {
+    "type": "fparam",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "aug_sign",
+          "named": true
+        },
+        {
+          "type": "base_sign",
+          "named": true
+        },
+        {
+          "type": "datatype_repl_spec",
+          "named": true
+        },
+        {
+          "type": "datatype_spec",
+          "named": true
+        },
+        {
+          "type": "eqtype_spec",
+          "named": true
+        },
+        {
+          "type": "exception_spec",
+          "named": true
+        },
+        {
+          "type": "functor_spec",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "include_spec",
+          "named": true
+        },
+        {
+          "type": "sharing_spec",
+          "named": true
+        },
+        {
+          "type": "str_spec",
+          "named": true
+        },
+        {
+          "type": "type_spec",
+          "named": true
+        },
+        {
+          "type": "val_spec",
+          "named": true
+        },
+        {
+          "type": "var_sign",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fsigb",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "aug_sign",
+          "named": true
+        },
+        {
+          "type": "base_sign",
+          "named": true
+        },
+        {
+          "type": "fparam",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "var_sign",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "fun_ldec",
     "named": true,
     "fields": {},
@@ -1074,6 +1660,66 @@
         },
         {
           "type": "tyvar_seq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functor_dec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "fctb",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functor_dec_strdec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "fctb",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functor_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "fctspec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "funsig_dec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "fsigb",
           "named": true
         }
       ]
@@ -1186,6 +1832,33 @@
     }
   },
   {
+    "type": "include_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "aug_sign",
+          "named": true
+        },
+        {
+          "type": "base_sign",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "var_sign",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "let_exp",
     "named": true,
     "fields": {},
@@ -1193,6 +1866,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "abstype_ldec",
+          "named": true
+        },
         {
           "type": "andalso_exp",
           "named": true
@@ -1211,6 +1888,10 @@
         },
         {
           "type": "datatype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_repl_ldec",
           "named": true
         },
         {
@@ -1263,6 +1944,152 @@
         },
         {
           "type": "while_exp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "let_fct_exp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "abstype_ldec",
+          "named": true
+        },
+        {
+          "type": "app_fct_exp",
+          "named": true
+        },
+        {
+          "type": "datatype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_repl_ldec",
+          "named": true
+        },
+        {
+          "type": "exception_ldec",
+          "named": true
+        },
+        {
+          "type": "fixity_ldec",
+          "named": true
+        },
+        {
+          "type": "fun_ldec",
+          "named": true
+        },
+        {
+          "type": "functor_dec_strdec",
+          "named": true
+        },
+        {
+          "type": "let_fct_exp",
+          "named": true
+        },
+        {
+          "type": "local_dec_strdec",
+          "named": true
+        },
+        {
+          "type": "open_ldec",
+          "named": true
+        },
+        {
+          "type": "structure_dec_strdec",
+          "named": true
+        },
+        {
+          "type": "type_ldec",
+          "named": true
+        },
+        {
+          "type": "val_ldec",
+          "named": true
+        },
+        {
+          "type": "var_fct_exp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "let_struct",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "abstype_ldec",
+          "named": true
+        },
+        {
+          "type": "app_struct",
+          "named": true
+        },
+        {
+          "type": "base_struct",
+          "named": true
+        },
+        {
+          "type": "datatype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_repl_ldec",
+          "named": true
+        },
+        {
+          "type": "exception_ldec",
+          "named": true
+        },
+        {
+          "type": "fixity_ldec",
+          "named": true
+        },
+        {
+          "type": "fun_ldec",
+          "named": true
+        },
+        {
+          "type": "functor_dec_strdec",
+          "named": true
+        },
+        {
+          "type": "let_struct",
+          "named": true
+        },
+        {
+          "type": "local_dec_strdec",
+          "named": true
+        },
+        {
+          "type": "open_ldec",
+          "named": true
+        },
+        {
+          "type": "structure_dec_strdec",
+          "named": true
+        },
+        {
+          "type": "type_ldec",
+          "named": true
+        },
+        {
+          "type": "val_ldec",
+          "named": true
+        },
+        {
+          "type": "var_struct",
           "named": true
         }
       ]
@@ -1343,6 +2170,73 @@
     }
   },
   {
+    "type": "local_dec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "abstype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_repl_ldec",
+          "named": true
+        },
+        {
+          "type": "exception_ldec",
+          "named": true
+        },
+        {
+          "type": "fixity_ldec",
+          "named": true
+        },
+        {
+          "type": "fun_ldec",
+          "named": true
+        },
+        {
+          "type": "functor_dec",
+          "named": true
+        },
+        {
+          "type": "funsig_dec",
+          "named": true
+        },
+        {
+          "type": "local_dec",
+          "named": true
+        },
+        {
+          "type": "open_ldec",
+          "named": true
+        },
+        {
+          "type": "signature_dec",
+          "named": true
+        },
+        {
+          "type": "structure_dec",
+          "named": true
+        },
+        {
+          "type": "type_ldec",
+          "named": true
+        },
+        {
+          "type": "val_ldec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "local_dec_let",
     "named": true,
     "fields": {},
@@ -1351,7 +2245,15 @@
       "required": false,
       "types": [
         {
+          "type": "abstype_ldec",
+          "named": true
+        },
+        {
           "type": "datatype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_repl_ldec",
           "named": true
         },
         {
@@ -1394,7 +2296,15 @@
       "required": false,
       "types": [
         {
+          "type": "abstype_ldec",
+          "named": true
+        },
+        {
           "type": "datatype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_repl_ldec",
           "named": true
         },
         {
@@ -1407,6 +2317,10 @@
         },
         {
           "type": "fun_ldec",
+          "named": true
+        },
+        {
+          "type": "functor_dec_strdec",
           "named": true
         },
         {
@@ -1519,6 +2433,21 @@
         },
         {
           "type": "symbolic",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "opaque_fsigconstraint_op",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
           "named": true
         }
       ]
@@ -1889,6 +2818,11 @@
     "fields": {}
   },
   {
+    "type": "rec_unit_pat",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "rule",
     "named": true,
     "fields": {},
@@ -2037,6 +2971,36 @@
     }
   },
   {
+    "type": "sharespec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "qident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sharing_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "sharespec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "sigb",
     "named": true,
     "fields": {},
@@ -2087,7 +3051,15 @@
       "required": false,
       "types": [
         {
+          "type": "abstype_ldec",
+          "named": true
+        },
+        {
           "type": "datatype_ldec",
+          "named": true
+        },
+        {
+          "type": "datatype_repl_ldec",
           "named": true
         },
         {
@@ -2100,6 +3072,18 @@
         },
         {
           "type": "fun_ldec",
+          "named": true
+        },
+        {
+          "type": "functor_dec",
+          "named": true
+        },
+        {
+          "type": "funsig_dec",
+          "named": true
+        },
+        {
+          "type": "local_dec",
           "named": true
         },
         {
@@ -2126,6 +3110,21 @@
     }
   },
   {
+    "type": "str_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "strspec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "strb",
     "named": true,
     "fields": {},
@@ -2134,11 +3133,19 @@
       "required": false,
       "types": [
         {
+          "type": "app_struct",
+          "named": true
+        },
+        {
           "type": "base_struct",
           "named": true
         },
         {
           "type": "ident",
+          "named": true
+        },
+        {
+          "type": "let_struct",
           "named": true
         },
         {
@@ -2166,6 +3173,37 @@
       "types": [
         {
           "type": "escape_seq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "strspec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "aug_sign",
+          "named": true
+        },
+        {
+          "type": "base_sign",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "qident",
+          "named": true
+        },
+        {
+          "type": "var_sign",
           "named": true
         }
       ]
@@ -2303,6 +3341,21 @@
     }
   },
   {
+    "type": "transparent_fsigconstraint_op",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "transparent_sigconstraint_op",
     "named": true,
     "fields": {},
@@ -2432,6 +3485,11 @@
     "fields": {}
   },
   {
+    "type": "tuple_unit_pat",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "type_ldec",
     "named": true,
     "fields": {},
@@ -2441,6 +3499,21 @@
       "types": [
         {
           "type": "tb",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "tyspec",
           "named": true
         }
       ]
@@ -2490,6 +3563,53 @@
     }
   },
   {
+    "type": "tyspec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "arrow_ty",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "mark_ty",
+          "named": true
+        },
+        {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
+          "type": "rec_ty",
+          "named": true
+        },
+        {
+          "type": "symbolic",
+          "named": true
+        },
+        {
+          "type": "tuple_ty",
+          "named": true
+        },
+        {
+          "type": "tyvar_seq",
+          "named": true
+        },
+        {
+          "type": "var_ty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "tyvar_seq",
     "named": true,
     "fields": {},
@@ -2503,16 +3623,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "unit_rec_pat",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "unit_tuple_pat",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "val_ldec",
@@ -2534,6 +3644,64 @@
     }
   },
   {
+    "type": "val_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "valspec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "valspec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "arrow_ty",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "mark_ty",
+          "named": true
+        },
+        {
+          "type": "paren_ty",
+          "named": true
+        },
+        {
+          "type": "rec_ty",
+          "named": true
+        },
+        {
+          "type": "symbolic",
+          "named": true
+        },
+        {
+          "type": "tuple_ty",
+          "named": true
+        },
+        {
+          "type": "var_ty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "var_exp",
     "named": true,
     "fields": {},
@@ -2547,6 +3715,36 @@
         },
         {
           "type": "symbolic",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "var_fct_exp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "qident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "var_fsig",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
           "named": true
         }
       ]
@@ -2837,11 +4035,19 @@
     "named": false
   },
   {
+    "type": "functor",
+    "named": false
+  },
+  {
     "type": "local",
     "named": false
   },
   {
     "type": "in",
+    "named": false
+  },
+  {
+    "type": "let",
     "named": false
   },
   {
@@ -2857,11 +4063,55 @@
     "named": false
   },
   {
+    "type": "datatype",
+    "named": false
+  },
+  {
+    "type": "withtype",
+    "named": false
+  },
+  {
     "type": "type",
     "named": false
   },
   {
+    "type": "eqtype",
+    "named": false
+  },
+  {
     "type": "val",
+    "named": false
+  },
+  {
+    "type": "op",
+    "named": false
+  },
+  {
+    "type": "exception",
+    "named": false
+  },
+  {
+    "type": "of",
+    "named": false
+  },
+  {
+    "type": "sharing",
+    "named": false
+  },
+  {
+    "type": "include",
+    "named": false
+  },
+  {
+    "type": "funsig",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
     "named": false
   },
   {
@@ -2877,23 +4127,11 @@
     "named": false
   },
   {
-    "type": "datatype",
+    "type": "abstype",
     "named": false
   },
   {
-    "type": "withtype",
-    "named": false
-  },
-  {
-    "type": "op",
-    "named": false
-  },
-  {
-    "type": "of",
-    "named": false
-  },
-  {
-    "type": "exception",
+    "type": "with",
     "named": false
   },
   {
@@ -2914,14 +4152,6 @@
   },
   {
     "type": "as",
-    "named": false
-  },
-  {
-    "type": "(",
-    "named": false
-  },
-  {
-    "type": ")",
     "named": false
   },
   {
@@ -3010,10 +4240,6 @@
   },
   {
     "type": "#",
-    "named": false
-  },
-  {
-    "type": "let",
     "named": false
   },
   {

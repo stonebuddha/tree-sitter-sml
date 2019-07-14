@@ -29,9 +29,9 @@ module.exports = grammar({
 		_sdec: $ => choice(
 			$.structure_dec,
 			$.signature_dec,
-			// $.funsig_dec,
-			// $.functor_dec,
-			// $.local_dec,
+			$.funsig_dec,
+			$.functor_dec,
+			$.local_dec,
 			$._ldec,
 		),
 
@@ -62,8 +62,8 @@ module.exports = grammar({
 		_str: $ => choice(
 			$.var_struct,
 			$.base_struct,
-			// $.app_struct,
-			// $.let_struct,
+			$.app_struct,
+			$.let_struct,
 		),
 
 		var_struct: $ => $.qident,
@@ -76,7 +76,7 @@ module.exports = grammar({
 
 		_strdec: $ => choice(
 			$.structure_dec_strdec,
-			// $.functor_dec_strdec,
+			$.functor_dec_strdec,
 			$.local_dec_strdec,
 			$._ldec,
 		),
@@ -87,11 +87,30 @@ module.exports = grammar({
 			repeat(seq('and', $.strb)),
 		),
 
+		functor_dec_strdec: $ => seq(
+			'functor',
+			$.fctb,
+			repeat(seq('and', $.fctb)),
+		),
+
 		local_dec_strdec: $ => seq(
 			'local',
 			repeat(choice(';', $._strdec)),
 			'in',
 			repeat(choice(';', $._strdec)),
+			'end',
+		),
+
+		app_struct: $ => seq(
+			$.qident,
+			repeat1($.arg_fct),
+		),
+
+		let_struct: $ => seq(
+			'let',
+			repeat(choice(';', $._strdec)),
+			'in',
+			$._str,
 			'end',
 		),
 
@@ -118,16 +137,106 @@ module.exports = grammar({
 		aug_sign: $ => prec.right(seq($._sign, 'where', $._whspec, repeat(seq('and', $._whspec)))),
 
 		_spec: $ => choice(
-			// $.str_spec,
-			// $.functor_spec,
-			// $.datatype_repl_spec,
-			// $.datatype_spec,
-			// $.type_spec,
-			// $.eqtype_spec,
-			// $.val_spec,
-			// $.exception_spec,
-			// $.sharing_spec,
-			// $.include_spec,
+			$.str_spec,
+			$.functor_spec,
+			$.datatype_repl_spec,
+			$.datatype_spec,
+			$.type_spec,
+			$.eqtype_spec,
+			$.val_spec,
+			$.exception_spec,
+			$.sharing_spec,
+			$.include_spec,
+		),
+
+		str_spec: $ => seq(
+			'structure',
+			$.strspec,
+			repeat(seq('and', $.strspec)),
+		),
+
+		strspec: $ => seq(
+			$.ident,
+			':',
+			$._sign,
+			optional(seq('=', $.qident)),
+		),
+
+		functor_spec: $ => seq(
+			'functor',
+			$.fctspec,
+			repeat(seq('and', $.fctspec)),
+		),
+
+		fctspec: $ => seq($.ident, $._fsig),
+
+		datatype_repl_spec: $ => seq(
+			'datatype',
+			$.dtrepl,
+		),
+
+		dtrepl: $ => seq($._full_ident, '=', 'datatype', $.con_ty),
+
+		datatype_spec: $ => seq(
+			'datatype',
+			$.db,
+			repeat(seq('and', $.db)),
+			optional(seq('withtype', $.tb)),
+		),
+
+		type_spec: $ => seq(
+			'type',
+			$.tyspec,
+			repeat(seq('and', $.tyspec)),
+		),
+
+		tyspec: $ => seq(
+			optional($.tyvar_seq),
+			$._full_ident,
+			optional(seq('=', $._ty)),
+		),
+
+		eqtype_spec: $ => seq(
+			'eqtype',
+			$.tyspec,
+			repeat(seq('and', $.tyspec)),
+		),
+
+		val_spec: $ => seq(
+			'val',
+			$.valspec,
+			repeat(seq('and', $.valspec)),
+		),
+
+		valspec: $ => seq(
+			optional('op'),
+			$._full_ident,
+			':',
+			$._ty
+		),
+
+		exception_spec: $ => seq(
+			'exception',
+			$.exnspec,
+			repeat(seq('and', $.exnspec)),
+		),
+
+		exnspec: $ => seq($._full_ident, optional(seq('of', $._ty))),
+
+		sharing_spec: $ => seq(
+			'sharing',
+			$.sharespec,
+			repeat(seq('and', $.sharespec)),
+		),
+
+		sharespec: $ => seq(optional('type'), $.qident, repeat1(seq('=', $.qident))),
+
+		include_spec: $ => seq(
+			'include',
+			choice(
+				$._sign,
+				seq($.ident, repeat1($.ident)),
+			),
 		),
 
 		_whspec: $ => choice(
@@ -139,15 +248,92 @@ module.exports = grammar({
 
 		struct_whsepc: $ => seq($.qident, '=', $.qident),
 
+		// Funsigs
+
+		funsig_dec: $ => seq(
+			'funsig',
+			$.fsigb,
+			repeat(seq('and', $.fsigb)),
+		),
+
+		fsigb: $ => seq($.ident, repeat1($.fparam), '=', $._sign),
+
+		_fsig: $ => choice(
+			$.var_fsig,
+			$.base_fsig,
+		),
+
+		var_fsig: $ => seq(':', $.ident),
+
+		base_fsig: $ => seq(repeat1($.fparam), ':', $._sign),
+
+		// Functors
+
+		functor_dec: $ => seq(
+			'functor',
+			$.fctb,
+			repeat(seq('and', $.fctb)),
+		),
+
+		fctb: $ => choice(
+			seq($.ident, repeat1($.fparam), $._sigconstraint_op, '=', $._str),
+			seq($.ident, $._fsigconstraint_op, '=', $._fct_exp),
+		),
+
+		fparam: $ => choice(
+			seq('(', $.ident, ':', $._sign, ')'),
+			seq('(', repeat(choice(';', $._spec)), ')'),
+		),
+
+		_fsigconstraint_op: $ => choice(
+			$.transparent_fsigconstraint_op,
+			$.opaque_fsigconstraint_op,
+		),
+
+		transparent_fsigconstraint_op: $ => seq(':', $.ident),
+
+		opaque_fsigconstraint_op: $ => seq(':>', $.ident),
+
+		_fct_exp: $ => choice(
+			$.var_fct_exp,
+			$.app_fct_exp,
+			$.let_fct_exp,
+		),
+
+		var_fct_exp: $ => $.qident,
+
+		app_fct_exp: $ => seq($.qident, repeat1($.arg_fct)),
+
+		arg_fct: $ => choice(
+			seq('(', repeat(choice(';', $._strdec)), ')'),
+			seq('(', $._str, ')'),
+		),
+
+		let_fct_exp: $ => seq(
+			'let',
+			repeat(choice(';', $._strdec)),
+			'in',
+			$._fct_exp,
+			'end',
+		),
+
 		// Misc
+
+		local_dec: $ => seq(
+			'local',
+			repeat(choice(';', $._sdec)),
+			'in',
+			repeat(choice(';', $._sdec)),
+			'end',
+		),
 
 		_ldec: $ => choice(
 			$.val_ldec,
 			$.fun_ldec,
 			$.type_ldec,
-			// $.datatype_repl_ldec,
+			$.datatype_repl_ldec,
 			$.datatype_ldec,
-			// $.abstype_ldec,
+			$.abstype_ldec,
 			$.exception_ldec,
 			$.open_ldec,
 			$.fixity_ldec,
@@ -206,6 +392,11 @@ module.exports = grammar({
 
 		// Datatype declarations
 
+		datatype_repl_ldec: $ => seq(
+			'datatype',
+			$.dtrepl,
+		),
+
 		datatype_ldec: $ => seq(
 			'datatype',
 			$.db,
@@ -231,6 +422,18 @@ module.exports = grammar({
 			optional('op'),
 			$._full_ident,
 			optional(seq('of', $._ty)),
+		),
+
+		// Abstype declarations
+
+		abstype_ldec: $ => seq(
+			'abstype',
+			$.db,
+			repeat(seq('and', $.db)),
+			optional(seq('withtype', $.tb)),
+			'with',
+			repeat(choice(';', $._ldec, $.local_dec_let)),
+			'end',
 		),
 
 		// Exception declarations
@@ -281,7 +484,7 @@ module.exports = grammar({
 			$._apat_,
 			$.paren_pat,
 			$.var_pat,
-			$.unit_tuple_pat,
+			$.tuple_unit_pat,
 			$.tuple_pat,
 			$.or_pat,
 		),
@@ -290,7 +493,7 @@ module.exports = grammar({
 
 		var_pat: $ => $._full_ident,
 
-		unit_tuple_pat: $ => seq('(', ')'),
+		tuple_unit_pat: $ => seq('(', ')'),
 
 		tuple_pat: $ => seq('(', $._pat, repeat1(seq(',', $._pat)), ')'),
 
@@ -303,7 +506,7 @@ module.exports = grammar({
 			$.wild_pat,
 			$.list_pat,
 			$.vector_pat,
-			$.unit_rec_pat,
+			$.rec_unit_pat,
 			$.rec_pat,
 		),
 
@@ -330,7 +533,7 @@ module.exports = grammar({
 			seq('#[', $._pat, repeat(seq(',', $._pat)), ']'),
 		),
 
-		unit_rec_pat: $ => seq('{', '}'),
+		rec_unit_pat: $ => seq('{', '}'),
 
 		rec_pat: $ => seq('{', $.plabels, '}'),
 
