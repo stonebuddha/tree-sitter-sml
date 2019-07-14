@@ -19,10 +19,11 @@ module.exports = grammar({
 	externals: $ => [
 		$.comment,
 		'"',
+		'#"',
 	],
 
 	rules: {
-		source_file: $ => repeat($._sdec),
+		source_file: $ => repeat(choice(';', $._sdec)),
 
 		// Top-level declarations
 
@@ -181,7 +182,7 @@ module.exports = grammar({
 			'datatype',
 			$.db,
 			repeat(seq('and', $.db)),
-			optional(seq('withtype', $.tb)),
+			optional(seq('withtype', $.tb, repeat(seq('and', $.tb)))),
 		),
 
 		type_spec: $ => seq(
@@ -430,7 +431,7 @@ module.exports = grammar({
 			'abstype',
 			$.db,
 			repeat(seq('and', $.db)),
-			optional(seq('withtype', $.tb)),
+			optional(seq('withtype', $.tb, repeat(seq('and', $.tb)))),
 			'with',
 			repeat(choice(';', $._ldec, $.local_dec_let)),
 			'end',
@@ -677,14 +678,14 @@ module.exports = grammar({
 		float_constant: $ => FLOAT,
 
 		char_constant: $ => seq(
-			'#"', choice(/[^\\']/, $.escape_seq), '"',
+			'#"', optional(choice(/[^\\"]/, $.escape_seq)), '"',
 		),
 
 		string_constant: $ => seq(
 			'"',
 			repeat(
 				choice(
-					/[^\\"%@]+|%|@/,
+					/[^\\"]+/,
 					$.escape_seq,
 					alias(/\\u\{[0-9A-Fa-f]+\}/, $.escape_seq),
         	alias(/\\\n[\t ]*/, $.escape_seq),

@@ -6,7 +6,8 @@ namespace {
 
 	enum {
 		COMMENT,
-		STRING_DELIM
+		STRING_DELIM,
+		CHAR_DELIM
 	};
 
 	struct Scanner {
@@ -53,90 +54,16 @@ namespace {
 				in_string = !in_string;
 				lexer->result_symbol = STRING_DELIM;
 				return true;
+			} else if (!in_string && valid_symbols[CHAR_DELIM] && lexer->lookahead == '#') {
+				advance(lexer);
+				lexer->result_symbol = CHAR_DELIM;
+				if (lexer->lookahead != '"') return false;
+				advance(lexer);
+				in_string = true;
+				return true;
 			}
 
 			return false;
-		}
-
-		void scan_string(TSLexer *lexer) {
-			while (true) {
-				switch (lexer->lookahead) {
-					case '\\':
-						advance(lexer);
-						advance(lexer);
-						break;
-					case '"':
-						advance(lexer);
-						return;
-					case '\0':
-						if (is_eof(lexer)) return;
-						break;
-					default:
-						advance(lexer);
-				}
-			}
-		}
-
-		char scan_character(TSLexer *lexer) {
-			char last = 0;
-
-			switch (lexer->lookahead) {
-				case '\\':
-					advance(lexer);
-					if (iswdigit(lexer->lookahead)) {
-						advance(lexer);
-						for (size_t i = 0; i < 2; i++) {
-							if (!iswdigit(lexer->lookahead)) return 0;
-							advance(lexer);
-						}
-					} else {
-						switch (lexer->lookahead) {
-							case 'x':
-								advance(lexer);
-								for (size_t i = 0; i < 2; i++) {
-									if (!iswdigit(lexer->lookahead) && (towupper(lexer->lookahead) < 'A' || towupper(lexer->lookahead) > 'F')) return 0;
-									advance(lexer);
-								}
-								break;
-							case 'o':
-								advance(lexer);
-								for (size_t i = 0; i < 3; i++) {
-									if (!iswdigit(lexer->lookahead) || lexer->lookahead > '7') return 0;
-									advance(lexer);
-								}
-								break;
-							case '\'':
-							case '"':
-							case '\\':
-							case 'n':
-							case 't':
-							case 'b':
-							case 'r':
-							case ' ':
-								last = (char)lexer->lookahead;
-								advance(lexer);
-								break;
-							default:
-								return 0;
-						}
-					}
-					break;
-				case '\'':
-					break;
-				case '\0':
-					if (is_eof(lexer)) return 0;
-					break;
-				default:
-					last = (char)lexer->lookahead;
-					advance(lexer);
-			}
-
-			if (lexer->lookahead == '\'') {
-				advance(lexer);
-				return 0;
-			} else {
-				return last;
-			}
 		}
 
 		bool scan_quoted_string(TSLexer *lexer) {
@@ -191,14 +118,6 @@ namespace {
 							advance(lexer);
 							return true;
 						}
-						break;
-					case '\'':
-						if (last) last = 0; else advance(lexer);
-						last = scan_character(lexer);
-						break;
-					case '"':
-						if (last) last = 0; else advance(lexer);
-						scan_string(lexer);
 						break;
 					case '{':
 						if (last) last = 0; else advance(lexer);
