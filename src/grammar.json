@@ -21,39 +21,6 @@
         }
       ]
     },
-    "_ldec": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "val_dec"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "fun_dec"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "ty_dec"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "dty_dec"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "exception_dec"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "open_dec"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "fixity_dec"
-        }
-      ]
-    },
     "structure_dec": {
       "type": "SEQ",
       "members": [
@@ -247,6 +214,39 @@
         {
           "type": "STRING",
           "value": "end"
+        }
+      ]
+    },
+    "_ldec": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "val_dec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "fun_dec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ty_dec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dty_dec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "exception_dec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "open_dec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "fixity_dec"
         }
       ]
     },

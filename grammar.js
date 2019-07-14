@@ -15,20 +15,6 @@ module.exports = grammar({
 			$._ldec,
 		),
 
-		_ldec: $ => choice(
-			$.val_dec,
-			$.fun_dec,
-			$.ty_dec,
-			// $.dty_repl_dec,
-			$.dty_dec,
-			// $.absty_dec,
-			$.exception_dec,
-			$.open_dec,
-			$.fixity_dec,
-		),
-
-		// Top declarations
-
 		structure_dec: $ => seq(
 			'structure',
 			$._struct_bind,
@@ -79,6 +65,18 @@ module.exports = grammar({
 			'in',
 			repeat(choice(';', $._strdec)),
 			'end',
+		),
+
+		_ldec: $ => choice(
+			$.val_dec,
+			$.fun_dec,
+			$.ty_dec,
+			// $.dty_repl_dec,
+			$.dty_dec,
+			// $.absty_dec,
+			$.exception_dec,
+			$.open_dec,
+			$.fixity_dec,
 		),
 
 		// Value declarations
