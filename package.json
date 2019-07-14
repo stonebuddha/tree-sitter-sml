@@ -4,8 +4,8 @@
   "description": "Standard ML Support for Tree-sitter",
   "main": "index.js",
   "scripts": {
-		"compile": "tree-sitter generate",
-		"pretest": "npm run compile",
+    "compile": "tree-sitter generate",
+    "pretest": "npm run compile",
     "test": "tree-sitter test"
   },
   "author": "Di Wang",
