@@ -259,7 +259,7 @@ module.exports = grammar({
 		),
 
 		fixity_ldec: $ => seq(
-			choice(seq(choice('infix', 'infixr'), optional(/\d+/)), 'nonfix'),
+			choice(seq(choice('infix', 'infixr'), optional($.int_constant)), 'nonfix'),
 			repeat1($._full_ident),
 		),
 

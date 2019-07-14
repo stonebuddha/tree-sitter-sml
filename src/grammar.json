@@ -1028,8 +1028,8 @@
                   "type": "CHOICE",
                   "members": [
                     {
-                      "type": "PATTERN",
-                      "value": "\\d+"
+                      "type": "SYMBOL",
+                      "name": "int_constant"
                     },
                     {
                       "type": "BLANK"

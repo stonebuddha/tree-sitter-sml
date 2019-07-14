@@ -1035,6 +1035,10 @@
           "named": true
         },
         {
+          "type": "int_constant",
+          "named": true
+        },
+        {
           "type": "symbolic",
           "named": true
         }
