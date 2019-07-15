@@ -7,10 +7,14 @@
     "compile": "tree-sitter generate",
     "pretest": "npm run compile",
     "test": "tree-sitter test",
-		"gen-wasm": "tree-sitter build-wasm"
+    "gen-wasm": "tree-sitter build-wasm"
   },
   "author": "Di Wang",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stonebuddha/tree-sitter-sml.git"
+  },
   "dependencies": {
     "nan": "^2.14.0"
   },
