@@ -1,6 +1,6 @@
 #!/usr/bin/env bash -e
 
-examples="compiler smlnj-lib system"
+examples="cm compiler system MLRISC smlnj-lib"
 
 for exa in $examples; do
 	files=$(

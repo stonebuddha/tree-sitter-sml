@@ -23,7 +23,15 @@ module.exports = grammar({
 	],
 
 	rules: {
-		source_file: $ => seq(repeat(seq($._exp, ';')), repeat(choice(';', $._sdec))),
+		source_file: $ => seq(
+			choice($._exp, repeat($._sdec)),
+			repeat(
+				seq(
+					';',
+					choice($._exp, repeat($._sdec)),
+				),
+			),
+		),
 
 		// Top-level declarations
 

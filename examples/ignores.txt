@@ -1,3 +1,7 @@
 examples/compiler/FLINT/opt/abcopt.sml
 examples/compiler/FLINT/plambda/rpplexp.sml
+examples/MLRISC/SSA/ssa-predicate.sml
+examples/MLRISC/graphs/trans-reduction.sml
+examples/MLRISC/graphs/graph-contraction.sml
+examples/MLRISC/ir-archive/fast-path.sml
 examples/smlnj-lib/PP/tests/typp.sml
