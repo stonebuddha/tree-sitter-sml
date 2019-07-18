@@ -73,6 +73,7 @@ module.exports = grammar({
 			$.base_struct,
 			$.app_struct,
 			$.let_struct,
+			$.constraint_struct,
 		),
 
 		var_struct: $ => $.qident,
@@ -122,6 +123,8 @@ module.exports = grammar({
 			$._str,
 			'end',
 		),
+
+		constraint_struct: $ => seq($._str, choice(':', ':>'), $._sign),
 
 		// Signatures
 

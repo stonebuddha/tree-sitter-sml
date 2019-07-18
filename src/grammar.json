@@ -195,6 +195,10 @@
         {
           "type": "SYMBOL",
           "name": "let_struct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "constraint_struct"
         }
       ]
     },
@@ -409,6 +413,32 @@
         {
           "type": "STRING",
           "value": "end"
+        }
+      ]
+    },
+    "constraint_struct": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_str"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "STRING",
+              "value": ":>"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sign"
         }
       ]
     },

@@ -336,6 +336,10 @@
           "named": true
         },
         {
+          "type": "constraint_struct",
+          "named": true
+        },
+        {
           "type": "datatype_ldec",
           "named": true
         },
@@ -1079,6 +1083,49 @@
     }
   },
   {
+    "type": "constraint_struct",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "app_struct",
+          "named": true
+        },
+        {
+          "type": "aug_sign",
+          "named": true
+        },
+        {
+          "type": "base_sign",
+          "named": true
+        },
+        {
+          "type": "base_struct",
+          "named": true
+        },
+        {
+          "type": "constraint_struct",
+          "named": true
+        },
+        {
+          "type": "let_struct",
+          "named": true
+        },
+        {
+          "type": "var_sign",
+          "named": true
+        },
+        {
+          "type": "var_struct",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "datatype_ldec",
     "named": true,
     "fields": {},
@@ -1449,6 +1496,10 @@
         },
         {
           "type": "base_struct",
+          "named": true
+        },
+        {
+          "type": "constraint_struct",
           "named": true
         },
         {
@@ -2053,6 +2104,10 @@
         },
         {
           "type": "base_struct",
+          "named": true
+        },
+        {
+          "type": "constraint_struct",
           "named": true
         },
         {
@@ -3296,6 +3351,10 @@
         },
         {
           "type": "base_struct",
+          "named": true
+        },
+        {
+          "type": "constraint_struct",
           "named": true
         },
         {
