@@ -3,3 +3,5 @@ compiler
 system
 MLRISC
 smlnj-lib
+ckit
+nlffi

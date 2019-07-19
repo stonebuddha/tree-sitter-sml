@@ -1,6 +1,6 @@
 #!/usr/bin/env bash -e
 
-examples="cm compiler system MLRISC smlnj-lib"
+examples="cm compiler system MLRISC smlnj-lib ckit nlffi"
 
 for exa in $examples; do
 	files=$(
