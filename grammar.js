@@ -12,10 +12,6 @@ module.exports = grammar({
 
 	word: $ => $.ident,
 
-	conflicts: $ => [
-		[$.match],
-	],
-
 	externals: $ => [
 		$.comment,
 		$.string,
@@ -576,7 +572,7 @@ module.exports = grammar({
 
 		// Matches
 
-		match: $ => seq($.rule, repeat(seq('|', $.rule))),
+		match: $ => prec.right(seq($.rule, repeat(seq('|', $.rule)))),
 
 		rule: $ => prec.right(seq($._pat, '=>', $._exp)),
 
