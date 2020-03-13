@@ -1,5 +1,0 @@
-binding.cc
-grammar.json
-node-types.json
-parser.c
-tree_sitter/parser.h
