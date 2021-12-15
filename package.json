@@ -1,7 +1,7 @@
 {
   "name": "tree-sitter-sml",
   "version": "0.0.1",
-  "description": "Standard ML Support for Tree-sitter",
+  "description": "Standard ML Grammar for Tree-sitter",
   "main": "index.js",
   "scripts": {
     "compile": "tree-sitter generate",
